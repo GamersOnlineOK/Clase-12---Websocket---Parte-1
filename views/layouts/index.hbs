@@ -42,7 +42,7 @@
                     Cargar Productos
                 </h4>
             </div>
-            <div class="col p-2 border-bottom">
+            <div class="col p-2 border-bottom" id="send">
                 {{!-- <form action="http://localhost:3200/api/productos/guardar" method="post"> --}}
                     <div class="d-flex">
                         <div class="mb-3 me-2">
@@ -59,8 +59,6 @@
                         <div>
                             <button type="submit" class="btn btn-primary">Enviar</button>
                         </div>
-
-
                     </div>
 
                 {{!-- </form> --}}
@@ -122,9 +120,8 @@
             </div>
         </div>
     </section>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js" integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg" crossorigin="anonymous"></script>
     <script src="index.js"></script>
-
 
 </body>
 

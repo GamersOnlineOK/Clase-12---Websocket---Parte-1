@@ -1,7 +1,7 @@
 const socket = io();
-const inputTitulo = document.querySelector("#title");
+const inputTitulo = document.querySelector("#nombre");
 const inputPrecio = document.querySelector("#price");
-const inputThumbnail = document.querySelector("#thumbnail");
+const inputThumbnail = document.querySelector("#img");
 
 const enviar = document.querySelector("#send");
 const listado = document.querySelector("#list");

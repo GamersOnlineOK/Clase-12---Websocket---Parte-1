@@ -5,6 +5,9 @@ const fs = require("fs");
 const App = express();
 const FILE_PRODUCTOS = "productos.txt";
 const productos = require('./rutas/productos.route');
+const http = require('http').Server(App);
+// Le pasamos la constante http
+const io = require('socket.io')(http);
 
 App.use(express.json());
 App.use(express.urlencoded({ extended: false }));
@@ -36,6 +39,43 @@ App.get('/',(req,res)=>{
             
         })
 })
+
+io.on("connection", (socket) => {
+    console.log("usuario conectado");
+  
+    socket.emit("productos", productos);
+  
+    socket.on("productoNuevo", (data) => {
+        const array = 
+        {
+            titulo: req.body.titulo,
+            price: req.body.price,
+            img: req.body.img,
+            
+        };
+        
+       
+        fs.promises.readFile(FILE_PRODUCTOS).then(data => {
+
+            const json = JSON.parse(data.toString('utf-8'));
+            const producto=({...array, id:json.length +1});
+            const productoFinal=json.push(producto);
+            res.redirect('/api/productos/listar')
+            fs.promises.writeFile(FILE_PRODUCTOS, JSON.stringify(json, null, "\t"))
+            .then(() => {
+                console.log("Producto Agregado Correctamente");
+                
+            })
+        }).then(data=>{
+            fs.promises.readFile(FILE_PRODUCTOS)
+            .then(data=>JSON.parse(data.toString('utf-8')))
+            .then(data=>res.json(data.length))
+            
+        }) 
+      });
+      io.sockets.emit("productos", productos);
+    });
+  
 
 
 
